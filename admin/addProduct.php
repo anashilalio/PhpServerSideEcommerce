@@ -12,16 +12,18 @@ if(isset($postdata) && !empty($postdata)) {
   $name = $request->name;
   $description = $request->description;
   $price = $request->price;
-
+  $categorie = $request->categorie;
+  echo $categorie ; 
   // Connect to the database and add the new product
   // This is just a placeholder - replace with your actual database code
   $db = new PDO('mysql:host=localhost;dbname=e-commerce', 'root', '');
-  $stmt = $db->prepare("INSERT INTO products (name, description, price) VALUES (?, ?, ?)");
-  $stmt->execute([$name, $description, $price]);
+  $stmt = $db->prepare("INSERT INTO products (name, description, price , categorie) VALUES (?, ?, ? , ?)");
+  $stmt->execute([$name, $description, $price , $categorie]);
 
   // Send a response back to the React application
   $response = ['status' => 'success'];
   header('Content-Type: application/json');
-  echo json_encode($response);
+  echo $response ; 
+  echo json_encode($response );
 }
 ?>
