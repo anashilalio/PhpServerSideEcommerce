@@ -8,10 +8,12 @@
     $request = json_decode($postData);
     $username = $request->username;
     $password = $request->password;
+    $email = $request->email;
+
     if($username!==null || $password!==null){
         $db = new PDO("mysql:host=localhost;dbname=e-commerce" , 'root' , '');
-        $stmt = $db->prepare("INSERT INTO client (username , pswd) VALUES (? , ?);");
-        $stmt->execute([$username , $password]);
+        $stmt = $db->prepare("INSERT INTO client (username , pswd , email) VALUES (? , ? , ?);");
+        $stmt->execute([$username , $password , $email]);
     }
     
    
