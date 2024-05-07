@@ -10,6 +10,11 @@ if(isset($_POST) && !empty($_POST)) {
   $description = $_POST['description'];
   $price = $_POST['price'];
   $categorie = $_POST['categorie'];
+  $date = $_POST['date'];
+  $autheur= $_POST['autheur'];
+  $created= $_POST['createdDate'];
+
+
 
   // Handle the uploaded image
   if(isset($_FILES['image'])){
@@ -37,8 +42,8 @@ if(isset($_POST) && !empty($_POST)) {
   // Connect to the database and add the new product
   // This is just a placeholder - replace with your actual database code
   $db = new PDO('mysql:host=localhost;dbname=e-commerce', 'root', '');
-  $stmt = $db->prepare("INSERT INTO products (name, description, price , categorie , images) VALUES (?, ?, ? , ? , ?)");
-  $stmt->execute([$name, $description, $price , $categorie , $image]);
+  $stmt = $db->prepare("INSERT INTO products (name, description, price , categorie , images , autheur , dat ,createdDate) VALUES (?,?, ?, ? , ? , ? , ?,?)");
+  $stmt->execute([$name, $description, $price , $categorie , $image, $autheur , $date , $created]);
 
   // Send a response back to the React application
   $response = ['status' => 'success'];
