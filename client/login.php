@@ -12,7 +12,7 @@
         $stmt->execute([$username , $password]);
         if($stmt->rowCount()>0){
             $response = $stmt->fetch(PDO::FETCH_ASSOC);
-            $_SESSION["user_id"] = $response["clientid"];
+            setcookie("user_id" , $response["clientid"] ,  time() + (86400 * 30),"/");
             header('Content-Type: application/json');
             echo json_encode($response);
         }else{
