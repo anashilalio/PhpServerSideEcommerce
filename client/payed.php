@@ -5,12 +5,14 @@ $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $listItems = $request->listItems;
 $clientid = $request->clientid;
+$dat = $request->datt;
+
 $db = new PDO("mysql:host=localhost;dbname=e-commerce");
 foreach($listItems as $item){
-    $stmt = $db->prepare("INSERT INTO shopeditems(clientid , productid ) VALUES  (? ,?)");
+    $stmt = $db->prepare("INSERT INTO shopeditems(clientid , productid ,dat) VALUES  (? ,? , ?)");
     $stmtt = $db->prepare("DELETE FROM cart where clientid = ? AND  productid = ? " );
     $stmttt = $db->prepare("DELETE FROM wishlist where clientid = ? AND  productid = ? " );
-        $stmt->execute([$clientid, $item ]);
+        $stmt->execute([$clientid, $item , $dat ]);
         $stmtt->execute([$clientid, $item ]);
         $stmttt->execute([$clientid, $item ]);
 

@@ -13,9 +13,21 @@ if(isset($_POST) && !empty($_POST)) {
   $date = $_POST['date'];
   $autheur= $_POST['autheur'];
   $created= $_POST['createdDate'];
-  $link= $_POST['bookLink'];
+  
+
+    $file_name = $_FILES['file']['name'];
+    $file_tmp = $_FILES['file']['tmp_name'];
+    $file_type = $_FILES['file']['type'];
+
+    // Check if the file is a PDF
+    if ($file_type !== 'application/pdf') {
+        die("File is not a PDF");
+    }
+    move_uploaded_file($file_tmp, "uploads/" . $file_name);
+    
 
 
+    $fileName = $_FILES['file']['name'];
 
 
   // Handle the uploaded image
@@ -45,7 +57,7 @@ if(isset($_POST) && !empty($_POST)) {
   // This is just a placeholder - replace with your actual database code
   $db = new PDO('mysql:host=localhost;dbname=e-commerce', 'root', '');
   $stmt = $db->prepare("INSERT INTO products (name, description, price , categorie , images , autheur , dat ,createdDate , link) VALUES (? ,?,?, ?, ? , ? , ? , ?,?)");
-  $stmt->execute([$name, $description, $price , $categorie , $image, $autheur , $date , $created , $link]);
+  $stmt->execute([$name, $description, $price , $categorie , $image, $autheur , $date , $created , $fileName]);
 
   // Send a response back to the React application
   $response = ['status' => 'success'];

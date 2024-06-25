@@ -6,10 +6,15 @@ $postData = file_get_contents("php://input");
 $request = json_decode($postData);
 
 $categorie = $request->categorie;
+$description = $request->description;
+$date = $request->fullDate;
+
+
+
+
 
 $pod = new PDO("mysql:host=localhost;dbname=e-commerce" ,"root" , "");
-$stmt = $pod->prepare("INSERT INTO categorie (categorie) VALUES (?);");
-$stmt->execute([$categorie]);
+$stmt = $pod->prepare("INSERT INTO categorie (categorie , description , dat) VALUES (? , ? , ?);");
+$stmt->execute([$categorie , $description , $date]);
 
 header('Content-Type: application/json');
-    echo json_encode($products);

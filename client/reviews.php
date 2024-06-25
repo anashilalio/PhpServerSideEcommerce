@@ -5,8 +5,11 @@ $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $comments =$request->review;
 $productid  =$request->productid;
+$rate  =$request->rate;
+$dat  =$request->dat;
+
 $userid =$request->clientid;
 $db = new PDO("mysql:host=localhost;dbname=e-commerce");
-$stmt = $db->prepare("INSERT INTO reviews(userid , productid , comments ) VALUES (? ,? ,?)");
-$stmt->execute([$userid , $productid , $comments]);
+$stmt = $db->prepare("INSERT INTO reviews(userid , productid , comments,rate ,dat) VALUES (? ,? ,?,?,?)");
+$stmt->execute([$userid , $productid , $comments , $rate , $dat]);
 
